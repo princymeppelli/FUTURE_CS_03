@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encrypted Files</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: url("/static/bg.png") no-repeat center center/cover;
+            color: white;
+        }
+
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+        }
+
+        .back-btn a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+
+        /* Top title box */
+        .title-box {
+            margin: 40px auto 30px;
+            text-align: center;
+            width: fit-content;
+            background: rgba(0,0,0,0.6);
+            padding: 18px 40px;
+            border-radius: 14px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* Files container */
+        .files-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        /* Individual file card */
+        .file-card {
+            width: 60%;
+            background: rgba(0,0,0,0.65);
+            padding: 18px 22px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 16px;
+            word-break: break-all;
+        }
+
+        .download-btn {
+            color: #00e676;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .download-btn:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .file-card {
+                width: 90%;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back Button -->
+    <div class="back-btn">
+        <a href="/">⬅ Back</a>
+    </div>
+
+    <!-- Page Title -->
+    <div class="title-box">
+        🔒 Encrypted Files
+    </div>
+
+    <!-- Files List -->
+    <div class="files-container">
+        {% for file in files %}
+        <div class="file-card">
+            <div class="file-name">
+                {{ file }}
+            </div>
+            <a class="download-btn" href="/download/{{ file }}">
+                Download
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

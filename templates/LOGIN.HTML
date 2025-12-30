@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Required</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: url("/static/LOGIN.png") no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: rgba(0, 0, 0, 0.65);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            width: 330px;
+            position: relative;
+        }
+
+        .login-box h2 {
+            margin-bottom: 25px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00c853;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Popup Overlay */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>🔐 Login to Download</h2>
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+    <div id="popupContent" class="popup-content"></div>
+</div>
+
+<script>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            let msg = "{{ messages[0] }}";
+            let popup = document.getElementById("popup");
+            let content = document.getElementById("popupContent");
+
+            popup.style.display = "flex";
+
+            if (msg === "success") {
+                content.innerHTML = "✅ File download is successful";
+                content.className = "popup-content success";
+            } else {
+                content.innerHTML = "❌ Unauthorized download";
+                content.className = "popup-content error";
+            }
+
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 2500);
+        {% endif %}
+    {% endwith %}
+</script>
+
+</body>
+</html>
